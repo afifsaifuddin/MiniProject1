@@ -1,9 +1,8 @@
 import "./App.css";
-import Resetpassword from "./pages/resetpassword";
 import { Write } from "./pages/write";
 import { Landing } from "./pages/landing";
 import { Route, Routes } from "react-router-dom";
-
+import { Resetpassword } from "./pages/resetpassword";
 import { Accountprofile } from "./pages/Accountprofile";
 
 import { Verified } from "./pages/verified";
@@ -18,7 +17,10 @@ function App() {
         <Route path="/Write" element={<Write />}></Route>
         <Route path="/Signin" element={<Signin />}></Route>
         <Route path="/Signup" element={<Signup />}></Route>
-        <Route path="/Resetpassword" element={<Resetpassword />}></Route>
+        <Route
+          path="/reset-password/:token"
+          element={<Resetpassword />}
+        ></Route>
         <Route path="/Accountprofile" element={<Accountprofile />}></Route>
         <Route path="/verification/:token" element={<Verified />}></Route>
       </Routes>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import {
   Box,
@@ -13,7 +13,25 @@ import {
   WrapItem,
   Avatar,
 } from "@chakra-ui/react";
+import axios from "axios";
 export const Sidebar = ({ blog }) => {
+  const [datacategory, setDatacategory] = useState([]);
+  const category = async () => {
+    try {
+      const res = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog/allCategory"
+      );
+      // console.log(res);
+      const resultcategory = res.data;
+      // console.log(resultcategory);
+      setDatacategory(resultcategory);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    category();
+  }, [datacategory]);
   return (
     <Box pl={"10px"} pos={"sticky"} top={"100px"}>
       <Box>
@@ -35,7 +53,7 @@ export const Sidebar = ({ blog }) => {
         </Text>
       </Box>
       <Box borderBottom={"2px"} my={3} />
-      {blog.map((item) => {
+      {datacategory.map((item) => {
         return (
           <Button
             _hover={{ bgColor: "#00C4FF" }}
@@ -43,10 +61,11 @@ export const Sidebar = ({ blog }) => {
             mb={"10px"}
             borderRadius={"15px"}
           >
-            {item.Category.name}
+            {item.name}
           </Button>
         );
       })}
+
       <Text mt={3} fontSize={"20px"} fontWeight={"bold"} mb={3}>
         Editors
       </Text>

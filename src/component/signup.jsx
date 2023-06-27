@@ -87,7 +87,7 @@ export default function Signup() {
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       fetchUser(values);
       localStorage.setItem("login", "true");
     },

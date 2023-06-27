@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Button, useToast, Text, Stack } from "@chakra-ui/react";
 import axios from "axios";
-import { Toast } from "@chakra-ui/react";
 export const Verified = () => {
   const toast = useToast();
   async function takeToken() {
     const url = window.location.href.split("/");
     const token = url.pop();
-    console.log(token);
+    // console.log(token);
     try {
       const res = await axios.patch(
         "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify",
@@ -22,7 +21,7 @@ export const Verified = () => {
         title: res.data.message,
         description: "We've created your account for you.",
         status: "success",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       });
       document.location.href = "/";

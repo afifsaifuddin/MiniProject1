@@ -16,12 +16,12 @@ import {
   InputRightElement,
   Link,
   Image,
+  useDisclosure,
 } from "@chakra-ui/react";
 import gambar from "../7490271.png";
 import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Resetpassword } from "./Resetpassword";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -33,6 +33,7 @@ import {
   userName,
 } from "../Redux/Reducer/Authreducer";
 import { useNavigate } from "react-router-dom";
+import { Modalforgetpass } from "./modalforgetpass";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -50,7 +51,7 @@ export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const toast = useToast();
-  const [email, setEmail] = useState("");
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   const fetchUser = async (values) => {
     try {
@@ -69,7 +70,7 @@ export default function Signin() {
         dispatch(userName(res.data.isAccountExist.username));
         dispatch(Phone(res.data.isAccountExist.phone));
         dispatch(Email(res.data.isAccountExist.email));
-        console.log(res);
+        // console.log(res);
         toast({
           title: res.data.message,
           description: "Login Success",
@@ -216,7 +217,15 @@ export default function Signin() {
                     justify={"space-between"}
                   >
                     <Checkbox>Remember me</Checkbox>
-                    <Button color={"#00C4FF "}>Reset Password</Button>
+                    <Button
+                      variant={""}
+                      color={"#00C4FF "}
+                      onClick={() => {
+                        onOpen();
+                      }}
+                    >
+                      Forget Password
+                    </Button>
                   </Stack>
                   <Button
                     bg={"black"}
@@ -235,6 +244,7 @@ export default function Signin() {
           </Box>
         </Stack>
       </Flex>
+      <Modalforgetpass isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
   );
 }

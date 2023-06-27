@@ -35,7 +35,7 @@ export const Buttonsignin = () => {
             <Link to="/Accountprofile" variant={""}>
               <MenuItem mt={5}>Profile</MenuItem>
             </Link>
-            <Link to="/Resetpassword" variant={""}>
+            <Link to="" variant={""}>
               <MenuItem>Edit Profile</MenuItem>
             </Link>
             <Button

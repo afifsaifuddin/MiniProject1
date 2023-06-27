@@ -12,18 +12,18 @@ import {
 import { Link } from "react-router-dom";
 import { Editprofile } from "../pages/Editprofile";
 import gambar from "../jokowi.jpeg";
-import { Changepassword } from "../pages/Changepassword";
+import { Resetpassword } from "../pages/resetpassword";
 import { Infoprofile } from "./Infoprofile";
 export const Sidebarprofile = () => {
-  const [activepage, setActivepage] = useState("EditProfile");
+  const [activepage, setActivepage] = useState("Infoprofile");
   const renderPage = () => {
     switch (activepage) {
       case "Infoprofile":
         return <Infoprofile />;
       case "EditProfile":
         return <Editprofile />;
-      case "Changepassword":
-        return <Changepassword />;
+      case "Resetpassword":
+        return <Resetpassword />;
       default:
         return null;
     }
@@ -62,13 +62,13 @@ export const Sidebarprofile = () => {
             </Button>
           </Link>
           <Link
-            onClick={() => setActivepage("Changepassword")}
+            onClick={() => setActivepage("Resetpassword")}
             fontSize={"md"}
             fontWeight={"bold"}
             ml={1}
           >
             <Button variant={"ghost"} width={"300px"}>
-              Change Password
+              Reset Password
             </Button>
           </Link>
         </VStack>
