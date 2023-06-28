@@ -5,65 +5,97 @@ const initialState = {
   user: {
     id: null,
     username: "",
-    phone: "",
     email: "",
+    phone: "",
     password: "",
+    isVerified: false,
+    role: false,
   },
   login: false,
-  username: [],
-  phone: [],
-  email: [],
   fotoProfile: [],
 };
 export const authreducer = createSlice({
   name: "authreducer",
   initialState,
   reducers: {
-    loginSuccess: (state, action) => {
+    setUser: (state, action) => {
+      const { id, username, email, phone, imgProfile, isVerified, role } =
+        action.payload;
+      state.user = {
+        id,
+        username,
+        email,
+        phone,
+        imgProfile,
+        isVerified,
+        role,
+      };
+    },
+    loginSuccess: (state) => {
       state.login = true;
-      localStorage.setItem("token", action.payload);
+      // localStorage.setItem("token", action.payload);
     },
     logoutSuccess: (state) => {
       state.login = false;
       localStorage.removeItem("token");
     },
-    userName: (state, action) => {
-      state.username.push(action.payload);
-    },
-    Phone: (state, action) => {
-      state.phone.push(action.payload);
-    },
-    Email: (state, action) => {
-      state.email.push(action.payload);
+    KeepLogin: (state) => {
+      state.login = true;
     },
     Foto: (state, action) => {
       state.fotoProfile.push(action.payload);
     },
   },
 });
-
-// export const checkLogin = () => {
-//   return async (dispatch) => {
-//     const token = localStorage.getItem("token");
-
-//     if (token) {
-//       try {
-//         const res = await axios.get(
-//           "https://minpro-blog.purwadhikabootcamp.com/api/auth/",
-//           {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//           }
-//         );
-//         dispatch(setUser(res.data));
-//       } catch (error) {
-//         console.log(error);
-//         dispatch(logoutSuccess());
-//       }
-//     }
-//   };
-// };
-export const { loginSuccess, logoutSuccess, userName, Phone, Email, Foto } =
-  authreducer.actions;
+export const fetchUser = (values) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
+        {
+          username: values.identifier,
+          phone: values.identifier,
+          email: values.identifier,
+          password: values.password,
+        }
+      );
+      console.log(res);
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      dispatch(loginSuccess());
+      dispatch(setUser(res.data.isAccountExist));
+    } catch (error) {
+      console.log("ini error ", error);
+    }
+  };
+};
+export const KeeploginSucces = () => {
+  return async (dispatch) => {
+    const token = localStorage.getItem("token");
+    try {
+      if (token) {
+        const respon = await axios.get(
+          "https://minpro-blog.purwadhikabootcamp.com/api/auth/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        dispatch(setUser(respon.data));
+        dispatch(KeepLogin());
+      }
+    } catch (error) {}
+  };
+};
+export const {
+  loginSuccess,
+  logoutSuccess,
+  userName,
+  Phone,
+  Email,
+  Foto,
+  setUser,
+  KeepLogin,
+} = authreducer.actions;
 export default authreducer.reducer;

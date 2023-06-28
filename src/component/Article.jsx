@@ -34,7 +34,7 @@ const Article = () => {
 
       const response = await axios.get(url);
       setPage(response.data.page);
-      console.log(response.data);
+      //   console.log(response.data);
       //   console.log(articles);
       setArticles(response.data.result);
     } catch (error) {
@@ -44,7 +44,7 @@ const Article = () => {
 
   useEffect(() => {
     fetchData();
-  }, [index]);
+  }, [index, selectedCategory, sortOrder]);
 
   const handleNextPage = () => {
     if (index < page) setIndex(index + 1);
@@ -123,10 +123,16 @@ const Article = () => {
     <Box mx={10}>
       <Box>
         <Flex alignItems={"center"}>
-          <Text fontSize={"3xl"} fontWeight={"bold"}>
-            All Article
+          <Text
+            border={"3px solid #00C4FF"}
+            borderRadius={10}
+            p={1}
+            fontSize={"3xl"}
+            fontWeight={"bold"}
+          >
+            Explore Article
           </Text>
-          <Box flex={1} borderBottom={"2px solid black"} />
+          <Box flex={1} borderBottom={"3px solid #00C4FF"} />
         </Flex>
       </Box>
       <Box mt={3} display={"flex"} justifyContent={"space-between"} gap={4}>
@@ -230,7 +236,6 @@ const Article = () => {
       </Box>
       <Box display="flex" justifyContent="center" mb={4}>
         <Button
-          size={"sm"}
           _hover={{ bgColor: "blue.100" }}
           bgColor="#00C4FF"
           onClick={handlePrevPage}
@@ -240,7 +245,6 @@ const Article = () => {
         </Button>
         {renderPageButtons()}
         <Button
-          size={"sm"}
           _hover={{ bgColor: "blue.100" }}
           bgColor="#00C4FF"
           onClick={handleNextPage}

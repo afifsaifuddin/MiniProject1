@@ -37,10 +37,16 @@ export const Bloglist = () => {
   return (
     <Stack mx={10}>
       <Flex alignItems={"center"}>
-        <Text fontSize={"3xl"} fontWeight={"bold"}>
+        <Text
+          fontSize={"3xl"}
+          fontWeight={"bold"}
+          border={"3px solid #00C4FF"}
+          borderRadius={10}
+          p={1}
+        >
           Hot Trending
         </Text>
-        <Box flex={1} borderBottom={"2px solid black"} />
+        <Box flex={1} borderBottom={"3px solid #00C4FF"} />
       </Flex>
       {favarticle.map((item) => {
         return (
@@ -72,7 +78,7 @@ export const Bloglist = () => {
                     src={`https://minpro-blog.purwadhikabootcamp.com/${item.User.imgProfile}`}
                   ></Avatar>
                   <Stack>
-                    <Text fontWeight={"bold"} ml={5} fontSize="md">
+                    <Text fontWeight={"bold"} ml={5} fontSize="md" pt={2}>
                       {item.User.username}
                     </Text>
                   </Stack>

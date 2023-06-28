@@ -26,83 +26,41 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import * as Yup from "yup";
-import {
-  Email,
-  Phone,
-  loginSuccess,
-  userName,
-  Foto,
-} from "../Redux/Reducer/Authreducer";
+import { fetchUser } from "../Redux/Reducer/Authreducer";
 import { useNavigate } from "react-router-dom";
 import { Modalforgetpass } from "./modalforgetpass";
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email address format")
-    .required("Email is required"),
+  identifier: Yup.string().required("Identifier is required"),
   password: Yup.string()
     .min(7, "Password must be 7 characters minimum")
     .max(15, "Password must be less than 16 character")
     .required("Password is required"),
-  username: Yup.string().required(""),
-  phone: Yup.string().required(""),
+  // username: Yup.string().required(""),
+  // phone: Yup.string().required(""),
 });
 
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
-  const fetchUser = async (values) => {
-    try {
-      const { email, password, username, phone } = values;
-      const res = await axios.post(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
-        {
-          username: username,
-          phone: phone,
-          email: email,
-          password: password,
-        }
-      );
-      if (res.status === 200) {
-        dispatch(loginSuccess(res.data.token));
-        dispatch(userName(res.data.isAccountExist.username));
-        dispatch(Phone(res.data.isAccountExist.phone));
-        dispatch(Email(res.data.isAccountExist.email));
-        dispatch(Foto(res.data.isAccountExist.imgProfile) || null);
-        console.log(res.data.isAccountExist);
-        toast({
-          title: res.data.message,
-          description: "Login Success",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: "Error",
-        description: "Account not verified",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-  };
+
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
-      phone: "",
+      identifier: "",
       username: "",
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      fetchUser(values);
+      dispatch(fetchUser(values));
+      console.log("ini console", values);
+      try {
+        alert("Login Success");
+        navigate("/");
+      } catch (error) {
+        alert("Login Failed");
+      }
     },
   });
   return (
@@ -121,65 +79,31 @@ export default function Signin() {
           <Box>
             <form onSubmit={formik.handleSubmit}>
               <Stack spacing={2}>
-                {/* <FormControl
-                  sx={{
-                    marginBottom: "25px",
-                  }}
-                  isInvalid={formik.touched.username && formik.errors.username}
-                >
-                  <FormLabel htmlFor="username">Username :</FormLabel>
-                  <Input
-                    id="username"
-                    name="username"
-                    type="text"
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
-                  />
-                  {formik.touched.username && formik.errors.username && (
-                    <FormErrorMessage>
-                      {formik.errors.username}
-                    </FormErrorMessage>
-                  )}
-                </FormControl> */}
                 <FormControl
                   sx={{
                     marginBottom: "25px",
                   }}
-                  isInvalid={formik.touched.email && formik.errors.email}
+                  isInvalid={
+                    formik.touched.identifier && formik.errors.identifier
+                  }
                 >
-                  <FormLabel htmlFor="email">Email :</FormLabel>
+                  <FormLabel htmlFor="identifier">
+                    Email/Username/Phone :
+                  </FormLabel>
                   <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                  />
-                  {formik.touched.email && formik.errors.email && (
-                    <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-                  )}
-                </FormControl>
-                {/* <FormControl
-                  sx={{
-                    marginBottom: "25px",
-                  }}
-                  isInvalid={formik.touched.phone && formik.errors.phone}
-                >
-                  <FormLabel htmlFor="phone">phone :</FormLabel>
-                  <Input
-                    id="phone"
-                    name="phone"
+                    id="identifier"
+                    name="identifier"
                     type="text"
                     variant="filled"
                     onChange={formik.handleChange}
-                    value={formik.values.phone}
+                    value={formik.values.identifier}
                   />
-                  {formik.touched.phone && formik.errors.phone && (
-                    <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
+                  {formik.touched.identifier && formik.errors.identifier && (
+                    <FormErrorMessage>
+                      {formik.errors.identifier}
+                    </FormErrorMessage>
                   )}
-                </FormControl> */}
+                </FormControl>
                 <FormControl
                   id="password"
                   isInvalid={formik.touched.password && formik.errors.password}

@@ -49,7 +49,7 @@ export default function CarouselNew() {
   };
   useEffect(() => {
     Latestarticle();
-  }, [latest]);
+  }, []);
   return (
     <>
       <Box pb={"50px"}>
