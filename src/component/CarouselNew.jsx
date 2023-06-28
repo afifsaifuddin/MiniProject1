@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -18,13 +18,10 @@ import {
 } from "@chakra-ui/react";
 import Slider from "react-slick";
 import { useState } from "react";
-import { BiLeftArrowAlt } from "react-icons/bi";
-import { BiRightArrowAlt } from "react-icons/bi";
 import { BsFillBookmarksFill } from "react-icons/bs";
-export default function CarouselNew({ blog }) {
+import axios from "axios";
+export default function CarouselNew() {
   const [slider, setSlider] = useState(null);
-  const top = useBreakpointValue({ base: "90%", md: "50%" });
-  const side = useBreakpointValue({ base: "30%", md: "40px" });
 
   const settings = {
     centerMode: true,
@@ -38,50 +35,28 @@ export default function CarouselNew({ blog }) {
     autoplay: true,
     cssEase: "linear",
   };
-  const [isLike, setisLike] = useState(10);
-  const [liked, setLiked] = useState(false);
-  const onClickButtonLike = () => {
-    setisLike(isLike + (liked ? -1 : 1));
-    setLiked(!liked);
+  const [latest, setLatest] = useState([]);
+  const Latestarticle = async () => {
+    try {
+      const res = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog?sort=DESC&page=1&size=10"
+      );
+      const resultLatest = res.data.result;
+      setLatest(resultLatest);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  useEffect(() => {
+    Latestarticle();
+  }, [latest]);
   return (
     <>
       <Box pb={"50px"}>
-        <IconButton
-          mt={"250px"}
-          ml={"30px"}
-          bgColor={"#00C4FF"}
-          aria-label="left-arrow"
-          variant="ghost"
-          position="absolute"
-          left={"side"}
-          top={"top"}
-          transform="translate(0%, -50%)"
-          zIndex={2}
-          onClick={() => slider?.slickPrev()}
-        >
-          <BiLeftArrowAlt size="40px" />
-        </IconButton>
-
-        <IconButton
-          aria-label="right-arrow"
-          mt={"-2380px"}
-          bgColor={"#00C4FF"}
-          variant="ghost"
-          position="absolute"
-          right={side}
-          top={top}
-          transform="translate(0%, -50%)"
-          zIndex={2}
-          onClick={() => slider?.slickNext()}
-        >
-          <BiRightArrowAlt size="40px" />
-        </IconButton>
         <Slider {...settings} ref={setSlider}>
-          {blog.map((item) => {
+          {latest.map((item) => {
             return (
-              <Card maxW="sm" h={"full"}>
+              <Card maxW="sm">
                 <CardBody>
                   <Image
                     src={`https://minpro-blog.purwadhikabootcamp.com/${item?.imageURL}`}
@@ -92,20 +67,19 @@ export default function CarouselNew({ blog }) {
                     overflow={"hidden"}
                     objectFit={"cover"}
                   />
-                  <Stack mt="6" spacing="3">
-                    <Heading size="md">{item?.title}</Heading>
-                    <Text>{item?.Category.name}</Text>
-                    <Text>{item?.content}</Text>
+                  <Stack mt="6" spacing="3" h={300}>
                     <Flex>
                       <Avatar
                         src={`https://minpro-blog.purwadhikabootcamp.com/${item?.User.imgProfile}`}
                       ></Avatar>
-                      <Stack>
-                        <Text fontWeight={"bold"} ml={5} fontSize="md">
-                          {item?.User.username}
-                        </Text>
-                      </Stack>
+
+                      <Text fontWeight={"bold"} ml={5} mt={2} fontSize="md">
+                        {item?.User.username}
+                      </Text>
                     </Flex>
+                    <Heading size="md">{item?.title}</Heading>
+                    <Text>{item?.Category.name}</Text>
+                    <Text fontSize={"2xs"}>{item?.content}</Text>
                   </Stack>
                 </CardBody>
                 <Divider />
@@ -118,12 +92,6 @@ export default function CarouselNew({ blog }) {
                       colorScheme="blue"
                     >
                       Read More
-                    </Button>
-                    <Button
-                      _hover={{ color: "#00C4FF" }}
-                      onClick={onClickButtonLike}
-                    >
-                      Like | {isLike}
                     </Button>
                     <Button _hover={{ color: "#00C4FF" }} variant={""}>
                       <BsFillBookmarksFill />

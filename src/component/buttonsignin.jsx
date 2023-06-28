@@ -8,6 +8,8 @@ import {
   MenuList,
   Avatar,
   MenuItem,
+  Text,
+  Stack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -16,6 +18,8 @@ import { logoutSuccess } from "../Redux/Reducer/Authreducer";
 export const Buttonsignin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.authreducer.username);
+  const email = useSelector((state) => state.authreducer.email);
   const login = useSelector((state) => state.authreducer.login);
   return (
     <Box>
@@ -29,13 +33,18 @@ export const Buttonsignin = () => {
             as={Button}
             rightIcon={<ChevronDownIcon />}
           >
-            <Avatar boxSize={35} src="https://bit.ly/broken-link" />
+            <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
           </MenuButton>
           <MenuList>
-            <Link to="/Accountprofile" variant={""}>
+            <Stack align={"center"}>
+              <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+              <Text fontWeight={"bold"}>{username}</Text>
+            </Stack>
+
+            <Link to="/Accountprofile">
               <MenuItem mt={5}>Profile</MenuItem>
             </Link>
-            <Link to="" variant={""}>
+            <Link to="">
               <MenuItem>Edit Profile</MenuItem>
             </Link>
             <Button

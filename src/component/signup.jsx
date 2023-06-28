@@ -93,171 +93,178 @@ export default function Signup() {
     },
   });
   return (
-    <Flex align={"center"} justify={"center"}>
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Image src={gambar} />
-          <Heading fontSize={"4xl"} textAlign={"center"}>
-            Sign up
-          </Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            Already have account?
-            <Link href="/Signin">Sign In</Link>
-          </Text>
-        </Stack>
-        <Box>
-          <form onSubmit={formik.handleSubmit}>
-            <Stack spacing={4}>
-              <Box>
-                <FormControl
-                  sx={{
-                    marginBottom: "25px",
-                  }}
-                  isInvalid={formik.touched.username && formik.errors.username}
-                >
-                  <FormLabel htmlFor="username">Username :</FormLabel>
-                  <Input
-                    id="username"
-                    name="username"
-                    type="text"
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
-                  />
-                  {formik.touched.username && formik.errors.username && (
-                    <FormErrorMessage>
-                      {formik.errors.username}
-                    </FormErrorMessage>
-                  )}
-                </FormControl>
-                <FormControl
-                  sx={{
-                    marginBottom: "25px",
-                  }}
-                  isInvalid={formik.touched.email && formik.errors.email}
-                >
-                  <FormLabel htmlFor="email">Email :</FormLabel>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                  />
-                  {formik.touched.email && formik.errors.email && (
-                    <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-                  )}
-                </FormControl>
-                <FormControl
-                  sx={{
-                    marginBottom: "25px",
-                  }}
-                  isInvalid={formik.touched.phone && formik.errors.phone}
-                >
-                  <FormLabel htmlFor="phone">phone :</FormLabel>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    variant="filled"
-                    onChange={formik.handleChange}
-                    value={formik.values.phone}
-                  />
-                  {formik.touched.phone && formik.errors.phone && (
-                    <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
-                  )}
-                </FormControl>
-                <FormControl
-                  id="password"
-                  isInvalid={formik.touched.password && formik.errors.password}
-                >
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <InputGroup>
+    <Box bgSize={"cover"} bgColor={"blue.100"}>
+      <Flex align={"center"} justify={"center"}>
+        <Stack mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack align={"center"}>
+            <Image src={gambar} />
+            <Heading fontSize={"4xl"} textAlign={"center"}>
+              Sign up
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              Already have account?
+              <Link href="/Signin">Sign In</Link>
+            </Text>
+          </Stack>
+          <Box>
+            <form onSubmit={formik.handleSubmit}>
+              <Stack spacing={4}>
+                <Box>
+                  <FormControl
+                    sx={{
+                      marginBottom: "25px",
+                    }}
+                    isInvalid={
+                      formik.touched.username && formik.errors.username
+                    }
+                  >
+                    <FormLabel htmlFor="username">Username :</FormLabel>
                     <Input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      name="password"
+                      id="username"
+                      name="username"
+                      type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={formik.values.password}
+                      value={formik.values.username}
                     />
-                    <InputRightElement h={"full"}>
-                      <Button
-                        variant={""}
-                        onClick={() =>
-                          setShowPassword((showPassword) => !showPassword)
-                        }
-                      >
-                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  {formik.touched.password && formik.errors.password && (
-                    <FormErrorMessage>
-                      {formik.errors.password}
-                    </FormErrorMessage>
-                  )}
-                </FormControl>
-                <FormControl
-                  id="confirmPassword"
-                  isInvalid={
-                    formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword
-                  }
-                >
-                  <FormLabel htmlFor="confirmPassword">
-                    Confirm Password
-                  </FormLabel>
-                  <InputGroup>
-                    <Input
-                      type={confirmpassword ? "text" : "password"}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      variant="filled"
-                      onChange={formik.handleChange}
-                      value={formik.values.confirmPassword}
-                    />
-                    <InputRightElement h={"full"}>
-                      <Button
-                        variant={""}
-                        onClick={() =>
-                          setConfirmpassword(
-                            (confirmpassword) => !confirmpassword
-                          )
-                        }
-                      >
-                        {confirmpassword ? <ViewIcon /> : <ViewOffIcon />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  {formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword && (
+                    {formik.touched.username && formik.errors.username && (
                       <FormErrorMessage>
-                        {formik.errors.confirmPassword}
+                        {formik.errors.username}
                       </FormErrorMessage>
                     )}
-                </FormControl>
-              </Box>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  type="submit"
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={"black"}
-                  color={"white"}
-                  _hover={{
-                    bg: "#00C4FF",
-                  }}
-                >
-                  Sign up
-                </Button>
+                  </FormControl>
+                  <FormControl
+                    sx={{
+                      marginBottom: "25px",
+                    }}
+                    isInvalid={formik.touched.email && formik.errors.email}
+                  >
+                    <FormLabel htmlFor="email">Email :</FormLabel>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      variant="filled"
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                    )}
+                  </FormControl>
+                  <FormControl
+                    sx={{
+                      marginBottom: "25px",
+                    }}
+                    isInvalid={formik.touched.phone && formik.errors.phone}
+                  >
+                    <FormLabel htmlFor="phone">phone :</FormLabel>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="text"
+                      variant="filled"
+                      onChange={formik.handleChange}
+                      value={formik.values.phone}
+                    />
+                    {formik.touched.phone && formik.errors.phone && (
+                      <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
+                    )}
+                  </FormControl>
+                  <FormControl
+                    id="password"
+                    isInvalid={
+                      formik.touched.password && formik.errors.password
+                    }
+                  >
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <InputGroup>
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                        variant="filled"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                      />
+                      <InputRightElement h={"full"}>
+                        <Button
+                          variant={""}
+                          onClick={() =>
+                            setShowPassword((showPassword) => !showPassword)
+                          }
+                        >
+                          {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {formik.touched.password && formik.errors.password && (
+                      <FormErrorMessage>
+                        {formik.errors.password}
+                      </FormErrorMessage>
+                    )}
+                  </FormControl>
+                  <FormControl
+                    id="confirmPassword"
+                    isInvalid={
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                    }
+                    mt={5}
+                  >
+                    <FormLabel htmlFor="confirmPassword">
+                      Confirm Password
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        type={confirmpassword ? "text" : "password"}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        variant="filled"
+                        onChange={formik.handleChange}
+                        value={formik.values.confirmPassword}
+                      />
+                      <InputRightElement h={"full"}>
+                        <Button
+                          variant={""}
+                          onClick={() =>
+                            setConfirmpassword(
+                              (confirmpassword) => !confirmpassword
+                            )
+                          }
+                        >
+                          {confirmpassword ? <ViewIcon /> : <ViewOffIcon />}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword && (
+                        <FormErrorMessage>
+                          {formik.errors.confirmPassword}
+                        </FormErrorMessage>
+                      )}
+                  </FormControl>
+                </Box>
+                <Stack spacing={10} pt={2}>
+                  <Button
+                    type="submit"
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={"black"}
+                    color={"white"}
+                    _hover={{
+                      bg: "#00C4FF",
+                    }}
+                  >
+                    Sign up
+                  </Button>
+                </Stack>
+                <Stack pt={6}></Stack>
               </Stack>
-              <Stack pt={6}></Stack>
-            </Stack>
-          </form>
-        </Box>
-      </Stack>
-    </Flex>
+            </form>
+          </Box>
+        </Stack>
+      </Flex>
+    </Box>
   );
 }

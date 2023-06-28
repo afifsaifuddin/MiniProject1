@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   user: {
@@ -12,6 +13,7 @@ const initialState = {
   username: [],
   phone: [],
   email: [],
+  fotoProfile: [],
 };
 export const authreducer = createSlice({
   name: "authreducer",
@@ -34,9 +36,34 @@ export const authreducer = createSlice({
     Email: (state, action) => {
       state.email.push(action.payload);
     },
+    Foto: (state, action) => {
+      state.fotoProfile.push(action.payload);
+    },
   },
 });
 
-export const { loginSuccess, logoutSuccess, userName, Phone, Email } =
+// export const checkLogin = () => {
+//   return async (dispatch) => {
+//     const token = localStorage.getItem("token");
+
+//     if (token) {
+//       try {
+//         const res = await axios.get(
+//           "https://minpro-blog.purwadhikabootcamp.com/api/auth/",
+//           {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//             },
+//           }
+//         );
+//         dispatch(setUser(res.data));
+//       } catch (error) {
+//         console.log(error);
+//         dispatch(logoutSuccess());
+//       }
+//     }
+//   };
+// };
+export const { loginSuccess, logoutSuccess, userName, Phone, Email, Foto } =
   authreducer.actions;
 export default authreducer.reducer;

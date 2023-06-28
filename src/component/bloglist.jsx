@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiTwotoneLike } from "react-icons/ai";
 import {
   Image,
@@ -14,22 +14,35 @@ import {
   CardFooter,
   Avatar,
 } from "@chakra-ui/react";
-export const Bloglist = ({ blog }) => {
-  const [isLike, setisLike] = useState(10);
-  const [liked, setLiked] = useState(false);
-  const onClickButtonLike = () => {
-    setisLike(isLike + (liked ? -1 : 1));
-    setLiked(!liked);
+import axios from "axios";
+export const Bloglist = () => {
+  const [favarticle, setFavarticle] = useState([]);
+
+  const favArticle = async () => {
+    try {
+      const res = await axios.get(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog/pagFav?orderBy=total_fav&sort=DESC&size=10"
+      );
+      const resultfavArticle = res.data.result;
+      setFavarticle(resultfavArticle);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    favArticle();
+  }, []);
+
   return (
-    <Stack w={900}>
+    <Stack mx={10}>
       <Flex alignItems={"center"}>
         <Text fontSize={"3xl"} fontWeight={"bold"}>
           Hot Trending
         </Text>
         <Box flex={1} borderBottom={"2px solid black"} />
       </Flex>
-      {blog.map((item) => {
+      {favarticle.map((item) => {
         return (
           <Card
             direction={{ base: "column", sm: "row" }}
@@ -49,9 +62,9 @@ export const Bloglist = ({ blog }) => {
 
             <Stack>
               <CardBody>
-                <Heading size="lg">{item.title}</Heading>
+                <Heading size="sm">{item.title}</Heading>
                 <Text>{item.Category.name}</Text>
-                <Text py="5" fontSize={"md"}>
+                <Text py="5" fontSize={"sm"}>
                   {item.content}
                 </Text>
                 <Flex>
@@ -76,12 +89,7 @@ export const Bloglist = ({ blog }) => {
                   >
                     Read More
                   </Button>
-                  <Button
-                    _hover={{ color: "#00C4FF" }}
-                    onClick={onClickButtonLike}
-                  >
-                    Like | {isLike}
-                  </Button>
+                  <Text>Disukai oleh {item.total_fav} orang</Text>
                 </Flex>
               </CardFooter>
             </Stack>

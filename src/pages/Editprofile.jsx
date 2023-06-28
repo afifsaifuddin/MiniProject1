@@ -4,7 +4,7 @@ export const Editprofile = () => {
   return (
     <Box>
       <Box>
-        <Text fontSize={"4xl"} fontWeight={"extrabold"} mb={"50px"}>
+        <Text fontSize={"30px"} fontWeight={"extrabold"} mb={"50px"}>
           Edit Profile
         </Text>
       </Box>

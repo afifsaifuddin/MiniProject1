@@ -1,6 +1,5 @@
 import React from "react";
 import { Buttonsignin } from "./buttonsignin";
-import { Profile } from "./profile";
 import { Link } from "react-router-dom";
 import { Box, Flex, Text, Spacer, Button, Image } from "@chakra-ui/react";
 import logo from "../7490271 2.png";
@@ -21,7 +20,6 @@ export const Navbar = () => {
         </Link>
         <Spacer />
         <Buttonwrite />
-
         <Buttonsignin m={0} />
       </Flex>
     </Box>

@@ -8,32 +8,43 @@ import {
   Flex,
   VStack,
   Divider,
+  Select,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Editprofile } from "../pages/Editprofile";
-import gambar from "../jokowi.jpeg";
-import { Resetpassword } from "../pages/resetpassword";
+import { Changeavatar } from "./Edit Profile/Changeavatar";
 import { Infoprofile } from "./Infoprofile";
+import { Changephone } from "./Edit Profile/Changephone";
+import { Changeusername } from "./Edit Profile/Changeusername";
+import { Changepassword } from "./Edit Profile/Changepassword";
+import { Changeemail } from "./Edit Profile/Changeemail";
+import { useSelector } from "react-redux";
 export const Sidebarprofile = () => {
+  const fotoProfile = useSelector((state) => state.authreducer.fotoProfile);
   const [activepage, setActivepage] = useState("Infoprofile");
   const renderPage = () => {
     switch (activepage) {
       case "Infoprofile":
         return <Infoprofile />;
-      case "EditProfile":
-        return <Editprofile />;
-      case "Resetpassword":
-        return <Resetpassword />;
+      case "ChangePhoto":
+        return <Changeavatar />;
+      case "ChangeUsername":
+        return <Changeusername />;
+      case "ChangePhone":
+        return <Changephone />;
+      case "ChangeEmail":
+        return <Changeemail />;
+      case "ChangePassword":
+        return <Changepassword />;
       default:
         return null;
     }
   };
   return (
     <Flex>
-      <Box bg="blue.200" w="300px" h={"863px"}>
+      <Box bg="#00C4FF" w="300px" h={"863px"}>
         <VStack align="center" spacing={4}>
           <Avatar
-            src={gambar}
+            src={fotoProfile}
             alt="foto profil"
             width={"200px"}
             height={"200px"}
@@ -51,24 +62,58 @@ export const Sidebarprofile = () => {
               Profile
             </Button>
           </Link>
+
           <Link
-            onClick={() => setActivepage("EditProfile")}
+            onClick={() => setActivepage("ChangePhoto")}
             fontSize={"md"}
             fontWeight={"bold"}
             ml={1}
           >
             <Button variant={"ghost"} width={"300px"}>
-              Edit Profile
+              Change Avatar
             </Button>
           </Link>
           <Link
-            onClick={() => setActivepage("Resetpassword")}
+            onClick={() => setActivepage("ChangeUsername")}
             fontSize={"md"}
             fontWeight={"bold"}
             ml={1}
           >
             <Button variant={"ghost"} width={"300px"}>
-              Reset Password
+              Change Username
+            </Button>
+          </Link>
+
+          <Link
+            onClick={() => setActivepage("ChangePhone")}
+            fontSize={"md"}
+            fontWeight={"bold"}
+            ml={1}
+          >
+            <Button variant={"ghost"} width={"300px"}>
+              Change Phone
+            </Button>
+          </Link>
+
+          <Link
+            onClick={() => setActivepage("ChangeEmail")}
+            fontSize={"md"}
+            fontWeight={"bold"}
+            ml={1}
+          >
+            <Button variant={"ghost"} width={"300px"}>
+              Change Email
+            </Button>
+          </Link>
+
+          <Link
+            onClick={() => setActivepage("ChangePassword")}
+            fontSize={"md"}
+            fontWeight={"bold"}
+            ml={1}
+          >
+            <Button variant={"ghost"} width={"300px"}>
+              Change Password
             </Button>
           </Link>
         </VStack>

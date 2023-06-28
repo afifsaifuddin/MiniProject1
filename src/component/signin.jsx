@@ -31,6 +31,7 @@ import {
   Phone,
   loginSuccess,
   userName,
+  Foto,
 } from "../Redux/Reducer/Authreducer";
 import { useNavigate } from "react-router-dom";
 import { Modalforgetpass } from "./modalforgetpass";
@@ -70,7 +71,8 @@ export default function Signin() {
         dispatch(userName(res.data.isAccountExist.username));
         dispatch(Phone(res.data.isAccountExist.phone));
         dispatch(Email(res.data.isAccountExist.email));
-        // console.log(res);
+        dispatch(Foto(res.data.isAccountExist.imgProfile) || null);
+        console.log(res.data.isAccountExist);
         toast({
           title: res.data.message,
           description: "Login Success",
@@ -85,7 +87,7 @@ export default function Signin() {
       toast({
         title: "Error",
         description: "Account not verified",
-        status: "success",
+        status: "error",
         duration: 3000,
         isClosable: true,
       });
@@ -104,7 +106,7 @@ export default function Signin() {
     },
   });
   return (
-    <>
+    <Box pb={"250px"} bgSize={"cover"} bgColor={"blue.100"}>
       <Flex>
         <Stack spacing={5} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
@@ -219,7 +221,8 @@ export default function Signin() {
                     <Checkbox>Remember me</Checkbox>
                     <Button
                       variant={""}
-                      color={"#00C4FF "}
+                      color={"black "}
+                      _hover={{ color: "#00C4FF" }}
                       onClick={() => {
                         onOpen();
                       }}
@@ -245,6 +248,6 @@ export default function Signin() {
         </Stack>
       </Flex>
       <Modalforgetpass isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-    </>
+    </Box>
   );
 }

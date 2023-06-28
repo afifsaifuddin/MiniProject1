@@ -5,7 +5,6 @@ export const Home = () => {
   return (
     <Box
       mt={"70px"}
-      img
       bgSize={"cover"}
       bgPos={"bottom"}
       bgImage={

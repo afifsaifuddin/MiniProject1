@@ -4,7 +4,7 @@ import { Landing } from "./pages/landing";
 import { Route, Routes } from "react-router-dom";
 import { Resetpassword } from "./pages/resetpassword";
 import { Accountprofile } from "./pages/Accountprofile";
-
+import { Verificationemail } from "./pages/verificationemail";
 import { Verified } from "./pages/verified";
 import Signin from "./component/signin";
 import Signup from "./component/signup";
@@ -21,6 +21,11 @@ function App() {
           path="/reset-password/:token"
           element={<Resetpassword />}
         ></Route>
+        <Route
+          path="/verification-change-email/:token"
+          element={<Verificationemail />}
+        ></Route>
+
         <Route path="/Accountprofile" element={<Accountprofile />}></Route>
         <Route path="/verification/:token" element={<Verified />}></Route>
       </Routes>

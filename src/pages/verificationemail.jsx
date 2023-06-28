@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, useToast, Text, Stack } from "@chakra-ui/react";
 import axios from "axios";
-export const Verified = () => {
+export const Verificationemail = () => {
   const toast = useToast();
   async function takeToken() {
     const url = window.location.href.split("/");
@@ -19,7 +19,7 @@ export const Verified = () => {
       );
       toast({
         title: res.data.message,
-        description: "We've created your account for you.",
+        description: "Email Successfully verified!",
         status: "success",
         duration: 3000,
         isClosable: true,

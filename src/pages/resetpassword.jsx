@@ -43,7 +43,7 @@ export const Resetpassword = () => {
         }
       );
       console.log(res);
-      document.location.href = "/";
+      document.location.href = "/Signin";
     } catch (error) {
       console.log(error);
     }
