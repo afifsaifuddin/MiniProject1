@@ -19,6 +19,7 @@ import {
 import Slider from "react-slick";
 import { useState } from "react";
 import { BsFillBookmarksFill } from "react-icons/bs";
+import { SlLike } from "react-icons/sl";
 import axios from "axios";
 export default function CarouselNew() {
   const [slider, setSlider] = useState(null);
@@ -94,7 +95,10 @@ export default function CarouselNew() {
                       Read More
                     </Button>
                     <Button _hover={{ color: "#00C4FF" }} variant={""}>
-                      <BsFillBookmarksFill />
+                      <BsFillBookmarksFill size={"20px"} />
+                    </Button>
+                    <Button _hover={{ color: "#00C4FF" }} variant={""}>
+                      <SlLike size={"20px"} />
                     </Button>
                   </ButtonGroup>
                 </CardFooter>

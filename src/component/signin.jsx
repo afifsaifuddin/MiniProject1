@@ -10,7 +10,6 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
   FormErrorMessage,
   InputGroup,
   InputRightElement,
@@ -20,24 +19,22 @@ import {
 } from "@chakra-ui/react";
 import gambar from "../7490271.png";
 import { useState } from "react";
-import { useToast } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { fetchUser } from "../Redux/Reducer/Authreducer";
+import { signIn } from "../Redux/Reducer/Authreducer";
 import { useNavigate } from "react-router-dom";
 import { Modalforgetpass } from "./modalforgetpass";
 
 const LoginSchema = Yup.object().shape({
   identifier: Yup.string().required("Identifier is required"),
   password: Yup.string()
-    .min(7, "Password must be 7 characters minimum")
-    .max(15, "Password must be less than 16 character")
+    .matches(
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/,
+      "Password must be at least 6 characters, 1 symbol, and 1 uppercase"
+    )
     .required("Password is required"),
-  // username: Yup.string().required(""),
-  // phone: Yup.string().required(""),
 });
 
 export default function Signin() {
@@ -45,16 +42,17 @@ export default function Signin() {
   const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
+  // const login = useSelector((state) => state.authreducer.login);
 
   const formik = useFormik({
     initialValues: {
       identifier: "",
-      username: "",
+      password: "",
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      dispatch(fetchUser(values));
-      console.log("ini console", values);
+      dispatch(signIn(values));
+      // console.log("ini console", values);
       try {
         alert("Login Success");
         navigate("/");
@@ -105,7 +103,6 @@ export default function Signin() {
                   )}
                 </FormControl>
                 <FormControl
-                  id="password"
                   isInvalid={formik.touched.password && formik.errors.password}
                 >
                   <FormLabel htmlFor="password">Password</FormLabel>
@@ -161,7 +158,6 @@ export default function Signin() {
                       bg: "#00C4FF",
                     }}
                     type="submit"
-                    // onClick={() => dispatch(loginSuccess(), navigate("/"))}
                   >
                     Sign in
                   </Button>

@@ -25,8 +25,10 @@ export const Changepassword = () => {
   const ChangepassScheme = Yup.object().shape({
     currentPassword: Yup.string().required("Password is required"),
     password: Yup.string()
-      .min(7, "Password must be 7 characters minimum")
-      .max(15, "Password must be less than 16 character")
+      .matches(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/,
+        "Password must be at least 6 characters, 1 symbol, and 1 uppercase"
+      )
       .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Password not Match")
@@ -58,14 +60,13 @@ export const Changepassword = () => {
         isClosable: true,
       });
     } catch (error) {
-      console.log(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.data.message,
-      //     status: "error",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
+      toast({
+        title: "Error",
+        description: error.data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
   const formik = useFormik({

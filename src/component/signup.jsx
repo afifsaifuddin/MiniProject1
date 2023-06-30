@@ -28,13 +28,15 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
-  phone: Yup.string().min(8).required("Phone number is required"),
+  phone: Yup.string().required("Phone number is required"),
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
   password: Yup.string()
-    .min(7, "Password must be 7 characters minimum")
-    .max(15, "Password must be less than 16 character")
+    .matches(
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/,
+      "Password must be at least 6 characters, 1 symbol, and 1 uppercase"
+    )
     .required("Password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Password not Match")

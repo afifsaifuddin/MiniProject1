@@ -10,9 +10,11 @@ import {
   FormControl,
   InputGroup,
   FormErrorMessage,
+  Image,
 } from "@chakra-ui/react";
 import axios from "axios";
 import * as Yup from "yup";
+import gambar from "../7490271.png";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -60,82 +62,85 @@ export const Resetpassword = () => {
     },
   });
   return (
-    <Box my={"200px"} mx={"500px"}>
-      <Box>
-        <Text fontSize={"4xl"} fontWeight={"extrabold"} mb={"30px"}>
-          Reset Password
-        </Text>
-      </Box>
-      <form onSubmit={formik.handleSubmit}>
-        <Stack gap={"10px"}>
-          <FormControl
-            id="password"
-            isInvalid={formik.touched.password && formik.errors.password}
-          >
-            <FormLabel htmlFor="password">Password</FormLabel>
-            <InputGroup>
-              <Input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-              />
-              <InputRightElement h={"full"}>
-                <Button
-                  variant={""}
-                  onClick={() =>
-                    setShowPassword((showPassword) => !showPassword)
-                  }
-                >
-                  {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            {formik.touched.password && formik.errors.password && (
-              <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-            )}
-          </FormControl>
-          <FormControl
-            id="confirmPassword"
-            isInvalid={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
-          >
-            <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-            <InputGroup>
-              <Input
-                type={confirmpassword ? "text" : "password"}
-                id="confirmPassword"
-                name="confirmPassword"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={formik.values.confirmPassword}
-              />
-              <InputRightElement h={"full"}>
-                <Button
-                  variant={""}
-                  onClick={() =>
-                    setConfirmpassword((confirmpassword) => !confirmpassword)
-                  }
-                >
-                  {confirmpassword ? <ViewIcon /> : <ViewOffIcon />}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            {formik.touched.confirmPassword &&
-              formik.errors.confirmPassword && (
-                <FormErrorMessage>
-                  {formik.errors.confirmPassword}
-                </FormErrorMessage>
+    <Box bgColor={"blue.100"} h={"900px"} pt={1}>
+      <Box my={"100px"} mx={"500px"}>
+        <Box>
+          <Image src={gambar} />
+          <Text fontSize={"4xl"} fontWeight={"extrabold"} mb={"30px"}>
+            Reset Password
+          </Text>
+        </Box>
+        <form onSubmit={formik.handleSubmit}>
+          <Stack gap={"10px"}>
+            <FormControl
+              id="password"
+              isInvalid={formik.touched.password && formik.errors.password}
+            >
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <InputGroup>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                />
+                <InputRightElement h={"full"}>
+                  <Button
+                    variant={""}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }
+                  >
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              {formik.touched.password && formik.errors.password && (
+                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
               )}
-          </FormControl>
-          <Button type="submit" _hover={{ bgColor: "blue.200" }}>
-            Submit
-          </Button>
-        </Stack>
-      </form>
+            </FormControl>
+            <FormControl
+              id="confirmPassword"
+              isInvalid={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+              }
+            >
+              <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+              <InputGroup>
+                <Input
+                  type={confirmpassword ? "text" : "password"}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.confirmPassword}
+                />
+                <InputRightElement h={"full"}>
+                  <Button
+                    variant={""}
+                    onClick={() =>
+                      setConfirmpassword((confirmpassword) => !confirmpassword)
+                    }
+                  >
+                    {confirmpassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <FormErrorMessage>
+                    {formik.errors.confirmPassword}
+                  </FormErrorMessage>
+                )}
+            </FormControl>
+            <Button type="submit" bgColor="#00C4FF">
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </Box>
     </Box>
   );
 };

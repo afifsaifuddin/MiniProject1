@@ -15,6 +15,9 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { BsFillBookmarksFill } from "react-icons/bs";
+import { SlLike } from "react-icons/sl";
+
 export const Bloglist = () => {
   const [favarticle, setFavarticle] = useState([]);
 
@@ -95,7 +98,16 @@ export const Bloglist = () => {
                   >
                     Read More
                   </Button>
-                  <Text>Disukai oleh {item.total_fav} orang</Text>
+                  <Button _hover={{ color: "#00C4FF" }} variant={""}>
+                    <BsFillBookmarksFill size={"20px"} />
+                  </Button>
+                  <Button _hover={{ color: "#00C4FF" }} variant={""}>
+                    <SlLike size={"20px"} />
+                  </Button>
+                  <Text fontWeight={"bold"} mt={2}>
+                    {" "}
+                    Disukai {item.total_fav} orang
+                  </Text>
                 </Flex>
               </CardFooter>
             </Stack>

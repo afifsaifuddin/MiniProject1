@@ -46,13 +46,13 @@ export const Changeusername = () => {
       });
     } catch (error) {
       console.log(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.data.message,
-      //     status: "error",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
+      toast({
+        title: "Error",
+        description: error.data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
   const formik = useFormik({

@@ -24,7 +24,7 @@ export const Changeemail = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.patch(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/changePhone",
+        "https://minpro-blog.purwadhikabootcamp.com/api/auth/changeEmail",
         {
           currentEmail: values.currentEmail,
           newEmail: values.newEmail,
@@ -45,14 +45,13 @@ export const Changeemail = () => {
         isClosable: true,
       });
     } catch (error) {
-      console.log(error);
-      //   toast({
-      //     title: "Error",
-      //     description: error.data.message,
-      //     status: "error",
-      //     duration: 3000,
-      //     isClosable: true,
-      //   });
+      toast({
+        title: "Error",
+        description: error.data.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
   const formik = useFormik({

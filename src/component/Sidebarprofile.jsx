@@ -19,7 +19,7 @@ import { Changepassword } from "./Edit Profile/Changepassword";
 import { Changeemail } from "./Edit Profile/Changeemail";
 import { useSelector } from "react-redux";
 export const Sidebarprofile = () => {
-  const fotoProfile = useSelector((state) => state.authreducer.fotoProfile);
+  const { user } = useSelector((state) => state.authreducer);
   const [activepage, setActivepage] = useState("Infoprofile");
   const renderPage = () => {
     switch (activepage) {
@@ -44,7 +44,7 @@ export const Sidebarprofile = () => {
       <Box bg="#00C4FF" w="300px" h={"863px"}>
         <VStack align="center" spacing={4}>
           <Avatar
-            src={fotoProfile}
+            src={`https://minpro-blog.purwadhikabootcamp.com/${user.imgProfile}`}
             alt="foto profil"
             width={"200px"}
             height={"200px"}

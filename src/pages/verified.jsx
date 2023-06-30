@@ -45,6 +45,7 @@ export const Verified = () => {
       display={"flex"}
       justifyContent={"center"}
       boxShadow="lg"
+      shadow={"10px"}
     >
       <Text
         py={"20px"}

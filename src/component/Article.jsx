@@ -18,7 +18,8 @@ import {
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { BsBookmarkPlus, BsHeart } from "react-icons/bs";
+import { BsFillBookmarksFill } from "react-icons/bs";
+import { SlLike } from "react-icons/sl";
 
 const Article = () => {
   const [articles, setArticles] = useState([]);
@@ -213,20 +214,12 @@ const Article = () => {
                     justifyContent={"space-between"}
                     mt={"-4"}
                   >
-                    <IconButton
-                      variant={"ghost"}
-                      size={"md"}
-                      rounded={"full"}
-                      aria-label="Bookmark"
-                      icon={<BsBookmarkPlus />}
-                    />
-                    <IconButton
-                      variant={"ghost"}
-                      size={"md"}
-                      rounded={"full"}
-                      aria-label="Like"
-                      icon={<BsHeart />}
-                    />
+                    <Button _hover={{ color: "#00C4FF" }} variant={""}>
+                      <BsFillBookmarksFill size={"20px"} />
+                    </Button>
+                    <Button _hover={{ color: "#00C4FF" }} variant={""}>
+                      <SlLike size={"20px"} />
+                    </Button>
                   </CardFooter>
                 </Card>
               </Box>

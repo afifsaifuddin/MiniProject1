@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Button, Image } from "@chakra-ui/react";
 import gambar from "../7490271.png";
 export const Home = () => {
   return (

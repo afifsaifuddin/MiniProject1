@@ -72,7 +72,7 @@ export const Modalforgetpass = ({ isOpen, onClose }) => {
         <ModalOverlay />
         <form onSubmit={formik.handleSubmit}>
           <ModalContent>
-            <ModalHeader>Forget Password</ModalHeader>
+            <ModalHeader>Forget Password ???</ModalHeader>
 
             <ModalBody pb={6}>
               <FormControl>

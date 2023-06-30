@@ -21,7 +21,7 @@ export const Buttonsignin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector((state) => state.authreducer.username);
-  const fotoProfile = useSelector((state) => state.authreducer.fotoProfile);
+  const { user } = useSelector((state) => state.authreducer);
   const login = useSelector((state) => state.authreducer.login);
   return (
     <Box>
@@ -35,11 +35,15 @@ export const Buttonsignin = () => {
             as={Button}
             rightIcon={<ChevronDownIcon />}
           >
-            <Avatar src={fotoProfile} />
+            <Avatar
+              src={`https://minpro-blog.purwadhikabootcamp.com/${user.imgProfile}`}
+            />
           </MenuButton>
           <MenuList>
             <Stack align={"center"}>
-              <Avatar src={fotoProfile} />
+              <Avatar
+                src={`https://minpro-blog.purwadhikabootcamp.com/${user.imgProfile}`}
+              />
               <Text fontWeight={"black"}> {username}</Text>
             </Stack>
 
@@ -49,7 +53,7 @@ export const Buttonsignin = () => {
                 Profile
               </MenuItem>
             </Link>
-            <Link to="">
+            <Link to="/">
               <MenuItem fontWeight={"bold"} gap={1}>
                 <AiOutlineEdit size={"25px"} />
                 Edit Profile

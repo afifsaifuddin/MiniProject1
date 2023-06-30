@@ -1,3 +1,4 @@
+import { Alert, AlertIcon } from "@chakra-ui/react";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -12,7 +13,6 @@ const initialState = {
     role: false,
   },
   login: false,
-  fotoProfile: [],
 };
 export const authreducer = createSlice({
   name: "authreducer",
@@ -33,13 +33,12 @@ export const authreducer = createSlice({
     },
     loginSuccess: (state) => {
       state.login = true;
-      // localStorage.setItem("token", action.payload);
     },
     logoutSuccess: (state) => {
       state.login = false;
       localStorage.removeItem("token");
     },
-    KeepLogin: (state) => {
+    keepLoginSuccess: (state) => {
       state.login = true;
     },
     Foto: (state, action) => {
@@ -47,29 +46,34 @@ export const authreducer = createSlice({
     },
   },
 });
-export const fetchUser = (values) => {
+export const signIn = (values) => {
   return async (dispatch) => {
     try {
-      const res = await axios.post(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
+      console.log(values);
+      const login = await axios.post(
+        `https://minpro-blog.purwadhikabootcamp.com/api/auth/login`,
         {
           username: values.identifier,
-          phone: values.identifier,
           email: values.identifier,
+          phone: values.identifier,
           password: values.password,
         }
       );
-      console.log(res);
-      const token = res.data.token;
+      console.log("ini respon", login);
+      const token = login.data.token;
       localStorage.setItem("token", token);
       dispatch(loginSuccess());
-      dispatch(setUser(res.data.isAccountExist));
+      dispatch(setUser(login.data.isAccountExist));
+      <Alert status="success" variant="solid">
+        <AlertIcon />
+        Login Success!
+      </Alert>;
     } catch (error) {
-      console.log("ini error ", error);
+      console.log(error);
     }
   };
 };
-export const KeeploginSucces = () => {
+export const keepLogin = () => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
     try {
@@ -83,11 +87,38 @@ export const KeeploginSucces = () => {
           }
         );
         dispatch(setUser(respon.data));
-        dispatch(KeepLogin());
+        dispatch(keepLoginSuccess());
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
+export const changePicture = (photo) => {
+  return async () => {
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append("file", photo);
+    try {
+      const respon = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/profile/single-uploaded",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(respon.data);
+      alert("Your avatar is changed");
+      document.location.href = "/Accountprofile";
+    } catch (error) {
+      console.log(error);
+      alert("Failed change your avatar");
+    }
+  };
+};
+
 export const {
   loginSuccess,
   logoutSuccess,
@@ -96,6 +127,6 @@ export const {
   Email,
   Foto,
   setUser,
-  KeepLogin,
+  keepLoginSuccess,
 } = authreducer.actions;
 export default authreducer.reducer;
