@@ -31,6 +31,7 @@ export const authreducer = createSlice({
         role,
       };
     },
+
     loginSuccess: (state) => {
       state.login = true;
     },
@@ -109,7 +110,7 @@ export const changePicture = (photo) => {
           },
         }
       );
-      console.log(respon.data);
+      // console.log(respon.data);
       alert("Your avatar is changed");
       document.location.href = "/Accountprofile";
     } catch (error) {
@@ -119,6 +120,45 @@ export const changePicture = (photo) => {
   };
 };
 
+export const likeArticle = (idArticle) => {
+  return async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(
+        "https://minpro-blog.purwadhikabootcamp.com/api/blog/like",
+        {
+          BlogId: idArticle,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const disLikeArticle = (idBlog) => {
+  return async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.delete(
+        `https://minpro-blog.purwadhikabootcamp.com/api/blog/unlike/${idBlog}`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      console.log("ini yang mau didislike ", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 export const {
   loginSuccess,
   logoutSuccess,

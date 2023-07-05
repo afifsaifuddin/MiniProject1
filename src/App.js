@@ -4,6 +4,7 @@ import { Landing } from "./pages/landing";
 import { Route, Routes } from "react-router-dom";
 import { Resetpassword } from "./pages/resetpassword";
 import { Accountprofile } from "./pages/Accountprofile";
+
 import { Verificationemail } from "./pages/verificationemail";
 import { Verified } from "./pages/verified";
 import Signin from "./component/signin";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Write" element={<Write />}></Route>
           <Route path="/Signin" element={<Signin />}></Route>
           <Route path="/Signup" element={<Signup />}></Route>
+
           <Route
             path="/reset-password/:token"
             element={<Resetpassword />}

@@ -23,6 +23,7 @@ import { SlLike } from "react-icons/sl";
 
 const Article = () => {
   const [articles, setArticles] = useState([]);
+  const idArticle = [];
   const [searchTerm, setSearchTerm] = useState("");
   const [index, setIndex] = useState(1);
   const [page, setPage] = useState(0);
@@ -35,16 +36,27 @@ const Article = () => {
 
       const response = await axios.get(url);
       setPage(response.data.page);
-      //   console.log(response.data);
-      //   console.log(articles);
+      // console.log(response.data);
       setArticles(response.data.result);
+      // console.log(articles);
+      // setIdarticle(response.data.result)
     } catch (error) {
       console.log(error);
     }
   };
-
+  const blog = async () => {
+    try {
+      articles.response.data.result.map((item) => {
+        return idArticle.push(item.Blog_Keywords.BlogId);
+      });
+      console.log(idArticle);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     fetchData();
+    blog();
   }, [index, selectedCategory, sortOrder]);
 
   const handleNextPage = () => {

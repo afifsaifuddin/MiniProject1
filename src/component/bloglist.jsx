@@ -13,13 +13,20 @@ import {
   CardBody,
   CardFooter,
   Avatar,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { BsFillBookmarksFill } from "react-icons/bs";
-import { SlLike } from "react-icons/sl";
+import { SlLike, SlDislike } from "react-icons/sl";
+import { useDispatch, useSelector } from "react-redux";
+import { likeArticle } from "../Redux/Reducer/Authreducer";
 
 export const Bloglist = () => {
+  const dispatch = useDispatch();
+
   const [favarticle, setFavarticle] = useState([]);
+
+  const toast = useToast();
 
   const favArticle = async () => {
     try {
@@ -33,7 +40,31 @@ export const Bloglist = () => {
     }
   };
 
+  const handleLike = (item) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      toast({
+        title: "Success",
+        description: "Like Success",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      // console.log(likeArticle);
+      return dispatch(likeArticle(item));
+    } else {
+      toast({
+        title: "Errorr",
+        description: "Login First",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
   useEffect(() => {
+    // const status = donelike.some((item) => item.BlogId == article.id);
+    // setLiked(status);
     favArticle();
   }, []);
 
@@ -101,7 +132,14 @@ export const Bloglist = () => {
                   <Button _hover={{ color: "#00C4FF" }} variant={""}>
                     <BsFillBookmarksFill size={"20px"} />
                   </Button>
-                  <Button _hover={{ color: "#00C4FF" }} variant={""}>
+
+                  <Button
+                    _hover={{ color: "#00C4FF" }}
+                    variant={""}
+                    onClick={() => {
+                      handleLike(item.id);
+                    }}
+                  >
                     <SlLike size={"20px"} />
                   </Button>
                   <Text fontWeight={"bold"} mt={2}>
